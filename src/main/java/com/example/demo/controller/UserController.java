@@ -34,7 +34,7 @@ public class UserController {
     @PostMapping("/signup")
     public String signup(@RequestBody SignupReq signupReq) {
         return service.addUser(signupReq);
-    }
+    } //Database üzerinde yeni bir kullanıcı oluşturuyoruz.
 
     @GetMapping("/user/userProfile")
     @PreAuthorize("hasAuthority('ROLE_USER')")
@@ -48,7 +48,7 @@ public class UserController {
         return "Welcome to Admin Profile";
     }
 
-    @PostMapping("/login")
+    @PostMapping("/login") //Giriş için kullanıcıdan username ve password değişkenlerini isteyen yol.
     public String authenticateAndGetToken(@RequestBody LoginReq loginReq) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginReq.getUsername(), loginReq.getPassword()));
         if (authentication.isAuthenticated()) {

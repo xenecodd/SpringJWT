@@ -22,7 +22,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-
+// Bu kısımda uygulamanın güvenlik ayarlarını yapıyoruz
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
@@ -48,7 +48,7 @@ public class Config {
                     .allowedMethods("GET", "POST", "PUT", "DELETE")
                     .allowedHeaders("*")
                     .allowCredentials(true);
-        }
+        } //Front-end tarafından gelen isteğin CORS'a takılmasını engelliyoruz.
     }
 
     @Bean
@@ -67,13 +67,13 @@ public class Config {
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
-    }
+    } //Authentication gerektiren ve gerektirmeyen route ları ayarlıyoruz. Filtre tanımlıyoruz(jwtfilter)
 
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }
+    } //Parolanın güvenliğini sağlamak için encrypt ediyoruz.
 
     @Bean
     public AuthenticationProvider authenticationProvider() {

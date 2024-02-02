@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+// Tablo oluşturduğumuz kısım
 @Entity
 @Data
 @AllArgsConstructor

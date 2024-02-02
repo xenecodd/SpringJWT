@@ -14,10 +14,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+// JWT token oluşturulduğu bölüm
 @Component
 public class JwtService {
 
-    public static final String SECRET = "DXBSLK0UoJedIohhn7VYP0fqJNI1DQCKqWWh2zLjB2s";
+    public static final String SECRET = "DXBSLK0UoJedIohhn7VYP0fqJNI1DQCKqWWh2zLjB2s"; //secret key belirliyoruz
     public String generateToken(String userName) {
         Map<String, Object> claims = new HashMap<>();
         return createToken(claims, userName);
@@ -32,11 +33,11 @@ public class JwtService {
                 .signWith(getSignKey(), SignatureAlgorithm.HS256).compact();
     }
 
-    private Key getSignKey() {
+    private Key getSignKey() { //imza algoritması belirliyoruz
         byte[] keyBytes= Decoders.BASE64.decode(SECRET);
         return Keys.hmacShaKeyFor(keyBytes);
     }
-
+ // Alt kısımda tokenden gerekli bilgileri çıkartıyoruz
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
@@ -63,7 +64,7 @@ public class JwtService {
         return extractExpiration(token).before(new Date());
     }
 
-    public Boolean validateToken(String token, UserDetails userDetails) {
+    public Boolean validateToken(String token, UserDetails userDetails) { //token geçerliliği sorguluyoruz
         final String username = extractUsername(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
